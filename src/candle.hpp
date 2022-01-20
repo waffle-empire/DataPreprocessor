@@ -1,7 +1,7 @@
 #pragma once
 #include "common.hpp"
 
-enum eTarget : int
+enum eTarget : int64_t
 {
     NONE,
     BUY,
@@ -38,7 +38,7 @@ struct candle
     double m_difference_lowhigh;
     double m_difference_openclose;
 
-    eTarget m_target;
+    eTarget m_target = eTarget::NONE;
 
     candle() = default;
     candle(double timestamp, double open, double close, double high, double low, double volume)
