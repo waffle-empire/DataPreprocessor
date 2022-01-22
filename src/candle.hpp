@@ -62,6 +62,17 @@ struct candle
         this->m_low = calc(this->m_low, other->m_low);
         this->m_volume = calc(this->m_volume, other->m_volume);
 
+        this->m_adosc = calc(this->m_adosc, other->m_adosc);
+        this->m_atr = calc(this->m_atr, other->m_atr);
+
+        this->m_macd = calc(this->m_macd, other->m_macd);
+        this->m_macd_hist = calc(this->m_macd_hist, other->m_macd_hist);
+        this->m_macd_signal = calc(this->m_macd_signal, other->m_macd_signal);
+
+        this->m_upper_band = calc(this->m_upper_band, other->m_upper_band);
+        this->m_middle_band = calc(this->m_middle_band, other->m_middle_band);
+        this->m_lower_band = calc(this->m_lower_band, other->m_lower_band);
+
         this->m_mfi /= 100;
         this->m_rsi /= 100;
 
