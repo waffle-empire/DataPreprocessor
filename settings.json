@@ -1,0 +1,9 @@
+{
+    "input": {
+        "input_folder": "data/input",
+        "is_binary": false
+    },
+    "output": {
+        "output_folder": "data/output"
+    }
+}

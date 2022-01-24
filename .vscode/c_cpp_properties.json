@@ -5,6 +5,7 @@
             "includePath": [
                 "src/",
                 "vendor/csv-parser/",
+                "vendor/json/single_include/",
                 "/usr/include/ta-lib"
             ],
             "intelliSenseMode": "linux-gcc-x64",

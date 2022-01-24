@@ -6,6 +6,7 @@
 #include <vector>
 
 #include <csv.h> // vendor/csv-parser
+#include <nlohmann/json.hpp> // vendor/json/single_include
 #include <ta-lib/ta_libc.h>
 
 namespace program

@@ -12,6 +12,7 @@ workspace "DataPreprocessor"
 
 	IncludeDir = {}
     IncludeDir["csv_parser"] = "vendor/csv-parser"
+	IncludeDir["json"] = "vendor/json/single_include"
 	IncludeDir["ta_lib"] = "/usr/include/ta-lib"
 
 	CppVersion = "C++17"
@@ -35,6 +36,7 @@ workspace "DataPreprocessor"
 		includedirs
 		{
             "%{IncludeDir.csv_parser}",
+			"%{IncludeDir.json}",
 			"src/"
 		}
 

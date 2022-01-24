@@ -1,6 +1,7 @@
 #include "common.hpp"
 #include "logger.hpp"
 #include "processing/preprocessor.hpp"
+#include "settings.hpp"
 #include "thread_pool.hpp"
 
 using namespace program;
@@ -17,25 +18,38 @@ int main(int argc, const char** argv)
     g_log->set_log_level(LogLevel::Info);
 #endif
 
-    g_log->info("MAIN", "Initiating thread pool.");
-    auto thread_pool_instance = std::make_unique<thread_pool>();
+    g_log->info("MAIN", "Reading settings file.");
+    std::unique_ptr<settings> settings_instance = std::make_unique<settings>();
+    settings_instance->load();
+
+    const char* input_folder;
+    const char* output_folder;
 
     if (argc < 3)
     {
-        g_log->error("MAIN", "Missing arguments, input_folder and/or output_folder");
+        input_folder = g_settings->input.input_folder.c_str();
+        output_folder = g_settings->output.output_folder.c_str();
 
-        return 1;
+        g_log->info("MAIN", "No input or output folder arguments given, falling back to settings.json.");
     }
-
-    const char* input_folder = argv[1];
-    const char* output_folder = argv[2];
-
-    if (!std::filesystem::exists(input_folder) || !std::filesystem::exists(output_folder))
+    else
     {
-        g_log->error("MAIN", "Input and/or output folder do not exist.");
+        input_folder = argv[1];
+        output_folder = argv[2];
+    }
+    
+    if (
+        !std::filesystem::exists(input_folder) || !std::filesystem::exists(output_folder) ||
+        !std::filesystem::is_directory(input_folder) || !std::filesystem::is_directory(output_folder)
+        )
+    {
+        g_log->error("MAIN", "Input and/or output directories don't exist.");
 
         return 1;
     }
+
+    g_log->info("MAIN", "Initiating thread pool.");
+    auto thread_pool_instance = std::make_unique<thread_pool>();
 
     try
     {
@@ -85,6 +99,8 @@ int main(int argc, const char** argv)
     g_log->info("MAIN", "Waiting for all threads to exit...");
     thread_pool_instance->destroy();
     thread_pool_instance.reset();
+
+    settings_instance.reset();
 
     g_log->info("MAIN", "Farewell!");
 
