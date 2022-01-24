@@ -1,5 +1,5 @@
 #pragma once
-#include "common.hpp"
+#include <cinttypes>
 
 enum eTarget : int64_t
 {

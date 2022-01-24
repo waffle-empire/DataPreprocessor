@@ -1,7 +1,6 @@
 #pragma once
 #include "common.hpp"
-#include "candle.hpp"
-#include <cmath>
+#include "pods/candle.hpp"
 
 namespace program::labelling
 {

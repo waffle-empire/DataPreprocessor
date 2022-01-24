@@ -1,6 +1,7 @@
 #pragma once
 #include "common.hpp"
-#include "candle.hpp"
+#include "pods/candle.hpp"
+#include "pods/unmodified_candle.hpp"
 #include "indicators.hpp"
 #include "labelling.hpp"
 #include "normalizer.hpp"
@@ -32,6 +33,32 @@ namespace program
             return m_input_file.filename().c_str();
         }
 
+        bool read_binary_input()
+        {
+            std::ifstream file(m_input_file.c_str(), std::ios::in | std::ios::binary);
+
+            while (!file.eof())
+            {
+                std::unique_ptr<candle> candle_data = std::make_unique<candle>();
+
+                try
+                {
+                    file.read((char*)candle_data.get(), sizeof(unmodified_candle));
+                }
+                catch(const std::exception& e)
+                {
+                    g_log->error("PREPROCESSOR", "Failed to read input file:\n%s", e.what());
+
+                    return false;
+                }
+                
+
+                m_candles.push_back(std::move(candle_data));
+            }
+
+            return true;
+        }
+
         bool read_input_file()
         {
             io::CSVReader<6> input_stream(m_input_file);
@@ -50,12 +77,12 @@ namespace program
             }
             catch(const std::exception& e)
             {
-                g_log->error("SYMBOL_PROCESSOR", "Failure while reading csv:\n%s", e.what());
+                g_log->error("PREPROCESSOR", "Failure while reading csv:\n%s", e.what());
 
                 return false;
             }
 
-            g_log->verbose("SYMBOL_PROCESSOR", "Loaded %d candles from %s", m_candles.size(), this->file_name());
+            g_log->verbose("PREPROCESSOR", "Loaded %d candles from %s", m_candles.size(), this->file_name());
 
             return true;
         }
