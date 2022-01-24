@@ -6,6 +6,7 @@
 #include "labelling.hpp"
 #include "normalizer.hpp"
 #include "logger.hpp"
+#include "settings.hpp"
 
 namespace program
 {
@@ -89,7 +90,10 @@ namespace program
 
         void start()
         {
-            this->read_input_file();
+            if (g_settings->input.is_binary)
+                this->read_binary_input();
+            else
+                this->read_input_file();
 
             indicators indicator_processor(&this->m_candles);
             indicator_processor.calculate_indicators();
