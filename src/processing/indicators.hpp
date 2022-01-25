@@ -38,6 +38,17 @@ namespace program
 
         void calculate_indicators()
         {
+            for (size_t i = 0; i < m_alloc_size; i++)
+            {
+                const std::unique_ptr<candle>& candle = m_candles->at(i);
+
+                m_open[i] = candle->m_close;
+                m_close[i] = candle->m_close;
+                m_high[i] = candle->m_high;
+                m_low[i] = candle->m_low;
+                m_volume[i] = candle->m_volume;
+            }
+
             this->calculate_adosc();
             this->calculate_atr();
             this->calculate_bollinger_bands();
