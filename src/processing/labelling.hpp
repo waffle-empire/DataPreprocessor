@@ -16,11 +16,11 @@ namespace program::labelling
         std::vector<double> cum_up_sell;
 
         double last_max = 0;
-        bool allow_sell = false;
+        bool allow_buy = false;
         int last_max_index = 0;
 
         double last_min = 0;
-        bool allow_buy = false;
+        bool allow_sell = false;
         int last_min_index = 0;
 
         for (size_t i = 0; i < candles->size(); i++)
@@ -50,21 +50,19 @@ namespace program::labelling
                             // g_log->info("Labelling", "new lastmax.");
                             last_max_index = i;
                             last_max = prev_up_sell - prev_down_sell;
-                            allow_sell = true;
+                            allow_buy = true;
                             cum_up_buy.clear();
                             cum_down_buy.clear();
                             cum_up.clear();
                             cum_down.clear();
                         }
 
-                        if (allow_buy)
+                        if (allow_sell)
                         {
-                            // set Buy at last_min
-                            // g_log->info("Labelling", "BUY.");
-                            candles->at(last_min_index)->m_target = eTarget::BUY;
+                            candles->at(last_min_index)->m_target = eTarget::SELL;
                             last_min_index = 0;
                             last_min = 0.01;
-                            allow_buy = false;
+                            allow_sell = false;
                             cum_up_buy.clear();
                             cum_down_buy.clear();
                         }
@@ -79,24 +77,21 @@ namespace program::labelling
                     {
                         // g_log->info("Labelling", "candle total down more than 1%.");
 
-                        if (allow_sell)
+                        if (allow_buy)
                         {
-                            // set sell at last_max
-                            // g_log->info("Labelling", "SELL.");
-                            candles->at(last_max_index)->m_target = eTarget::SELL;
+                            candles->at(last_max_index)->m_target = eTarget::BUY;
                             last_max_index = 0;
                             last_max = 0.01;
-                            allow_sell = false;
+                            allow_buy = false;
                             cum_down_sell.clear();
                             cum_up_sell.clear();
                         }
 
                         if (prev_down_buy - prev_up_buy > last_min)
                         {
-                            // g_log->info("Labelling", "new lastmin.");
                             last_min_index = i;
                             last_min = prev_down_buy - prev_up_buy;
-                            allow_buy = true;
+                            allow_sell = true;
                             cum_down_sell.clear();
                             cum_up_sell.clear();
                             cum_up.clear();
