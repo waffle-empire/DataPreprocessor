@@ -6,7 +6,7 @@
  - [Build Dependencies](#build-dependencies)
  - [Compiling the application](#compiling-the-application)
  - [Using the Application](#using-the-application)
- - [Data output format](#data-output-format)
+ - [Data Input format](#data-input-format)
  - [Verify Data Integrity](#verify-data-integrity)
 
 ## Cloning
@@ -75,7 +75,7 @@ If you don't give any arguments the application will default to reading the sett
 }
 ```
 
-## Data Output Format
+## Data Input Format
 
 ### CSV
 
