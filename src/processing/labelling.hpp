@@ -15,6 +15,8 @@ namespace program::labelling
         std::vector<double> cum_down_sell;
         std::vector<double> cum_up_sell;
 
+        double min_change = 0.02;
+
         double last_max = 0;
         bool allow_buy = false;
         int last_max_index = 0;
@@ -43,7 +45,7 @@ namespace program::labelling
 
                 if (candle->m_close > 0)
                 {
-                    if (prev_up - prev_down > 0.01)
+                    if (prev_up - prev_down > min_change)
                     {
                         if (prev_up_sell - prev_down_sell > last_max)
                         {
@@ -61,7 +63,7 @@ namespace program::labelling
                         {
                             candles->at(last_min_index)->m_target = eTarget::SELL;
                             last_min_index = 0;
-                            last_min = 0.01;
+                            last_min = min_change;
                             allow_sell = false;
                             cum_up_buy.clear();
                             cum_down_buy.clear();
@@ -73,7 +75,7 @@ namespace program::labelling
                 }
                 else if (candle->m_close < 0)
                 {
-                    if (prev_down - prev_up > 0.01)
+                    if (prev_down - prev_up > min_change)
                     {
                         // g_log->info("Labelling", "candle total down more than 1%.");
 
@@ -81,7 +83,7 @@ namespace program::labelling
                         {
                             candles->at(last_max_index)->m_target = eTarget::BUY;
                             last_max_index = 0;
-                            last_max = 0.01;
+                            last_max = min_change;
                             allow_buy = false;
                             cum_down_sell.clear();
                             cum_up_sell.clear();
