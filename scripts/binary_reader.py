@@ -1,4 +1,4 @@
-import numpy as np
+import numpy as np # pip install numpy
 import time
 import os
 
