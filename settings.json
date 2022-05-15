@@ -1,9 +1,9 @@
 {
     "input": {
-        "input_folder": "data/input",
+        "input_folder": "/data/ssd/Coding/Testing/data/in/",
         "is_binary": false
     },
     "output": {
-        "output_folder": "data/output"
+        "output_folder": "/data/ssd/Coding/Testing/data/out/"
     }
 }

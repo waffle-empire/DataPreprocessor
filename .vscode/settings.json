@@ -78,6 +78,9 @@
         "slist": "cpp",
         "shared_mutex": "cpp",
         "typeindex": "cpp",
-        "valarray": "cpp"
+        "valarray": "cpp",
+        "*.ipp": "cpp",
+        "span": "cpp",
+        "*.inc": "cpp"
     }
 }

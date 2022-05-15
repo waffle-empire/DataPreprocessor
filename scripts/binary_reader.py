@@ -1,6 +1,7 @@
 import numpy as np # pip install numpy
 import time
 import os
+import csv
 
 field_info = [
     { "type": np.uint64, "count": 1 },
@@ -34,12 +35,16 @@ def read_bin_full_file(file):
     return data
 
 start_time = time.time()
-data = read_bin_full_file('./data/output/PERLUSDT.bin')
+data = read_bin_full_file('/data/ssd/Coding/Testing/data/out/AAVEUSDT.bin')
 
 if True:
     for candle in data:
         print(candle)
 
-        time.sleep(0.3)
+        # time.sleep(0.3)
+
+with open("/data/ssd/Coding/Testing/data/out/AAVEUSDTcpp.csv", "w", newline="") as f:
+    writer = csv.writer(f)
+    writer.writerows(data)
 
 print(f"Difference: {(time.time() - start_time) * 1000}ms")

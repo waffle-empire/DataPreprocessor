@@ -98,9 +98,9 @@ namespace program
             indicators indicator_processor(&this->m_candles);
             indicator_processor.calculate_indicators();
 
-            normalizer::normalize_candles(&this->m_candles);
+            // normalizer::normalize_candles(&this->m_candles);
 
-            labelling::label_data(&this->m_candles);
+            // labelling::label_data(&this->m_candles);
 
             this->write_binary_out();
         }

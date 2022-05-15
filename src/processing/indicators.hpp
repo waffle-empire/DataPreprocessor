@@ -65,8 +65,8 @@ namespace program
             int beginIdx, endIdx;
             TA_ADOSC(0, m_alloc_size, m_high, m_low, m_close, m_volume, fast_period, slow_period, &beginIdx, &endIdx, tmp_adosc);
 
-            for (size_t i = beginIdx; i < endIdx; i++)
-                m_candles->at(i)->m_adosc = tmp_adosc[i];
+            for (size_t i = beginIdx; i < m_candles->size(); i++)
+                m_candles->at(i)->m_adosc = tmp_adosc[i-beginIdx];
 
             delete[] tmp_adosc;
         }
@@ -78,8 +78,8 @@ namespace program
             int beginIdx, endIdx;
             TA_ATR(0, m_alloc_size, m_high, m_low, m_close, period_range, &beginIdx, &endIdx, tmp_atr);
 
-            for (size_t i = beginIdx; i < endIdx; i++)
-                m_candles->at(i)->m_atr = tmp_atr[i];
+            for (size_t i = beginIdx; i < m_candles->size(); i++)
+                m_candles->at(i)->m_atr = tmp_atr[i-beginIdx];
 
             delete[] tmp_atr;
         }
@@ -95,13 +95,13 @@ namespace program
             TA_MAType MAtype = TA_MAType_SMA;
             TA_BBANDS(0, m_alloc_size, m_close, period_range, optInNbDevUp, optInNbDevDown, MAtype, &beginIdx, &endIdx, tmp_upper_band, tmp_middle_band, tmp_lower_band);
 
-            for (size_t i = beginIdx; i < endIdx; i++)
+            for (size_t i = beginIdx; i < m_candles->size(); i++)
             {
                 const std::unique_ptr<candle>& candle = m_candles->at(i);
 
-                candle->m_upper_band = tmp_upper_band[i];
-                candle->m_middle_band = tmp_middle_band[i];
-                candle->m_lower_band = tmp_lower_band[i];
+                candle->m_upper_band = tmp_upper_band[i-beginIdx];
+                candle->m_middle_band = tmp_middle_band[i-beginIdx];
+                candle->m_lower_band = tmp_lower_band[i-beginIdx];
             }
 
             delete[] tmp_upper_band;
@@ -118,13 +118,13 @@ namespace program
             int beginIdx, endIdx;
             TA_MACD(0, m_alloc_size, m_close, fast_period, slow_period, signal_period, &beginIdx, &endIdx, tmp_macd, tmp_macd_signal, tmp_macd_hist);
 
-            for (size_t i = beginIdx; i < endIdx; i++)
+            for (size_t i = beginIdx; i < m_candles->size(); i++)
             {
                 const std::unique_ptr<candle>& candle = m_candles->at(i);
 
-                candle->m_macd = tmp_macd[i];
-                candle->m_macd_signal = tmp_macd_signal[i];
-                candle->m_macd_hist = tmp_macd_hist[i];
+                candle->m_macd = tmp_macd[i-beginIdx];
+                candle->m_macd_signal = tmp_macd_signal[i-beginIdx];
+                candle->m_macd_hist = tmp_macd_hist[i-beginIdx];
             }
 
             delete[] tmp_macd;
@@ -139,8 +139,8 @@ namespace program
             int beginIdx, endIdx;
             TA_MFI(0, m_alloc_size, m_high, m_low, m_close, m_volume, period_range, &beginIdx, &endIdx, tmp_mfi);
 
-            for (size_t i = beginIdx; i < endIdx; i++)
-                m_candles->at(i)->m_mfi = tmp_mfi[i];
+            for (size_t i = beginIdx; i < m_candles->size(); i++)
+                m_candles->at(i)->m_mfi = tmp_mfi[i-beginIdx];
 
             delete[] tmp_mfi;
         }
@@ -152,8 +152,8 @@ namespace program
             int beginIdx, endIdx;
             TA_RSI(0, m_alloc_size, m_close, period_range, &beginIdx, &endIdx, tmp_rsi);
 
-            for (size_t i = beginIdx; i < endIdx; i++)
-                m_candles->at(i)->m_rsi = tmp_rsi[i];
+            for (size_t i = beginIdx; i < m_candles->size(); i++)
+                m_candles->at(i)->m_rsi = tmp_rsi[i-beginIdx];
 
             delete[] tmp_rsi;
         }
