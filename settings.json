@@ -1,9 +1,9 @@
 {
     "input": {
-        "input_folder": "/data/ssd/Coding/Testing/data/in/",
+        "input_folder": "/home/joren/Coding/cryptodata/1MIN/",
         "is_binary": false
     },
     "output": {
-        "output_folder": "/data/ssd/Coding/Testing/data/out/"
+        "output_folder": "/home/joren/Coding/cryptodata/Normalized_labelled/"
     }
 }

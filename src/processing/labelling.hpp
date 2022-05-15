@@ -15,7 +15,7 @@ namespace program::labelling
         std::vector<double> cum_down_sell;
         std::vector<double> cum_up_sell;
 
-        double min_change = 0.02;
+        double min_change = 0.01;
 
         double last_max = 0;
         bool allow_buy = false;
