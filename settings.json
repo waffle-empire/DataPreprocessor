@@ -1,9 +1,9 @@
 {
     "input": {
-        "input_folder": "/home/joren/Coding/cryptodata/1MIN/",
+        "input_folder": "/run/media/joren/Coding/Python/DataCollector/Data/Crypto/2022-06-14/",
         "is_binary": false
     },
     "output": {
-        "output_folder": "/home/joren/Coding/cryptodata/Normalized_labelled/"
+        "output_folder": "/run/media/joren/Coding/Python/DataCollector/Data/Crypto/done/"
     }
 }

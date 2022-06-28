@@ -56,7 +56,6 @@ namespace program
             this->calculate_mfi();
             this->calculate_tema();
             this->calculate_sar();
-            this->calculate_shootingstar();
             this->calculate_rsi();
         }
         
@@ -172,20 +171,6 @@ namespace program
                 m_candles->at(i)->m_sar = tmp_sar[i-beginIdx];
 
             delete[] tmp_sar;
-        }
-
-        void calculate_shootingstar()
-        {
-            double* tmp_shootingstar = new double[m_alloc_size];
-
-            int beginIdx, endIdx;
-            TA_CDLSHOOTINGSTAR(0, m_alloc_size, m_open, m_high, m_low, m_close, &beginIdx, &endIdx, tmp_shootingstar);
-
-            for (size_t i = beginIdx; i < m_candles->size(); i++)
-                m_candles->at(i)->m_shootingstar = tmp_shootingstar[i-beginIdx];
-                g_log->info("shootin star", tmp_shootingstar[i-beginIdx]);
-
-            delete[] tmp_shootingstar;
         }
 
         void calculate_rsi(const size_t period_range = 14)

@@ -33,8 +33,6 @@ struct candle
 
     double m_sar;
 
-    double m_shootingstar;
-
     double m_upper_band;
     double m_middle_band;
     double m_lower_band;
