@@ -54,11 +54,14 @@ namespace program
             this->calculate_bollinger_bands();
             this->calculate_macd();
             this->calculate_mfi();
+            this->calculate_tema();
+            this->calculate_sar();
+            this->calculate_shootingstar();
             this->calculate_rsi();
         }
         
     private:
-        void calculate_adosc(const size_t fast_period = 24, const size_t slow_period = 45)
+        void calculate_adosc(const size_t fast_period = 3, const size_t slow_period = 10)
         {
             double* tmp_adosc = new double[m_alloc_size];
 
@@ -71,7 +74,7 @@ namespace program
             delete[] tmp_adosc;
         }
 
-        void calculate_atr(const size_t period_range = 24)
+        void calculate_atr(const size_t period_range = 20)
         {
             double* tmp_atr = new double[m_alloc_size];
 
@@ -132,7 +135,7 @@ namespace program
             delete[] tmp_macd_hist;
         }
 
-        void calculate_mfi(const size_t period_range = 30)
+        void calculate_mfi(const size_t period_range = 25)
         {
             double* tmp_mfi = new double[m_alloc_size];
 
@@ -143,6 +146,46 @@ namespace program
                 m_candles->at(i)->m_mfi = tmp_mfi[i-beginIdx];
 
             delete[] tmp_mfi;
+        }
+
+        void calculate_tema(const size_t period_range = 15)
+        {
+            double* tmp_tema = new double[m_alloc_size];
+
+            int beginIdx, endIdx;
+            TA_TEMA(0, m_alloc_size, m_close, period_range, &beginIdx, &endIdx, tmp_tema);
+
+            for (size_t i = beginIdx; i < m_candles->size(); i++)
+                m_candles->at(i)->m_tema = tmp_tema[i-beginIdx];
+
+            delete[] tmp_tema;
+        }
+
+        void calculate_sar(const size_t acceleration = 0.02, const size_t maximum = 0.15)
+        {
+            double* tmp_sar = new double[m_alloc_size];
+
+            int beginIdx, endIdx;
+            TA_SAR(0, m_alloc_size, m_high, m_low, acceleration, maximum, &beginIdx, &endIdx, tmp_sar);
+
+            for (size_t i = beginIdx; i < m_candles->size(); i++)
+                m_candles->at(i)->m_sar = tmp_sar[i-beginIdx];
+
+            delete[] tmp_sar;
+        }
+
+        void calculate_shootingstar()
+        {
+            double* tmp_shootingstar = new double[m_alloc_size];
+
+            int beginIdx, endIdx;
+            TA_CDLSHOOTINGSTAR(0, m_alloc_size, m_open, m_high, m_low, m_close, &beginIdx, &endIdx, tmp_shootingstar);
+
+            for (size_t i = beginIdx; i < m_candles->size(); i++)
+                m_candles->at(i)->m_shootingstar = tmp_shootingstar[i-beginIdx];
+                g_log->info("shootin star", tmp_shootingstar[i-beginIdx]);
+
+            delete[] tmp_shootingstar;
         }
 
         void calculate_rsi(const size_t period_range = 14)

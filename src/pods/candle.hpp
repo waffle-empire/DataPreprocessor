@@ -29,6 +29,12 @@ struct candle
 
     double m_mfi;
 
+    double m_tema;
+
+    double m_sar;
+
+    double m_shootingstar;
+
     double m_upper_band;
     double m_middle_band;
     double m_lower_band;
@@ -68,6 +74,10 @@ struct candle
         this->m_macd = calc(this->m_macd, other->m_macd);
         this->m_macd_hist = calc(this->m_macd_hist, other->m_macd_hist);
         this->m_macd_signal = calc(this->m_macd_signal, other->m_macd_signal);
+
+        this->m_tema = calc(this->m_tema, other->m_tema);
+
+        this->m_sar = calc(this->m_sar, other->m_sar);
 
         this->m_upper_band = calc(this->m_upper_band, other->m_upper_band);
         this->m_middle_band = calc(this->m_middle_band, other->m_middle_band);
