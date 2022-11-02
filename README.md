@@ -52,7 +52,7 @@ make config=release
 
 Example:
 ```bash
-DataPreprocessor data/input data/output
+./bin/Release/DataPreprocessor data/input data/output
 ```
 
 #### Downside of argument only
